@@ -1,0 +1,247 @@
+import xlrd
+
+#for 24.617624° 113.678038°两个单元格
+def txt_save(filename,col1,col2,table):
+    #写进txt
+    print("总行数：" + str(table.nrows))
+    print("总列数：" + str(table.ncols))
+    outfile = open(filename,mode='a')
+    for rowNum in range(table.nrows):
+        if rowNum > 0:
+            la=str(table.cell(rowNum,col1).value)
+            lo=str(table.cell(rowNum,col2).value)
+            if len(la) == 0 or len(lo) == 0:
+                for tem_row in range(rowNum,table.nrows):
+                    la_tem=str(table.cell(tem_row,col1).value)
+                    lo_tem=str(table.cell(tem_row,col2).value)
+                    if len(la_tem) > 0 and len(lo_tem) > 0:
+                        la=la_tem
+                        lo=lo_tem
+                        break
+            la=''.join(la.split())
+            lo=''.join(lo.split())
+            if '′' in la or '′' in lo:
+                la_deg=float(la[:la.find('°')])
+                lo_deg=float(lo[:lo.find('°')])
+                la_minu=float(la[la.find('°')+1:la.find('′')])
+                lo_minu=float(lo[lo.find('°')+1:lo.find('′')])
+                la_sec=float(la[la.find('′')+1:la.find('″')])
+                lo_sec=float(lo[lo.find('′')+1:lo.find('″')])
+                la1=("%.4f"%(la_deg+la_minu/60+la_sec/3600))
+                lo1=("%.4f"%(lo_deg+lo_minu/60+lo_sec/3600))
+            else:
+                la1_tem=float(la[:la.find('°')])
+                lo1_tem=float(lo[:lo.find('°')])
+                la1=("%.4f"%la1_tem)
+                lo1=("%.4f"%lo1_tem)
+            outfile.writelines([str(la1),' ',str(lo1),'\n'])
+            print(rowNum,la1,lo1)
+    outfile.close()
+
+#for 24.617624° 113.678038°两个单元格
+def txt_save5(filename,col1,col2,table):
+    #写进txt
+    print("总行数：" + str(table.nrows))
+    print("总列数：" + str(table.ncols))
+    outfile = open(filename,mode='a')
+    for rowNum in range(table.nrows):
+        if rowNum > 0:
+            la=str(table.cell(rowNum,col1).value)
+            lo=str(table.cell(rowNum,col2).value)
+            if len(la) == 0 or len(lo) == 0:
+                for tem_row in range(rowNum,table.nrows):
+                    la_tem=str(table.cell(tem_row,col1).value)
+                    lo_tem=str(table.cell(tem_row,col2).value)
+                    if len(la_tem) > 0 and len(lo_tem) > 0:
+                        la=la_tem
+                        lo=lo_tem
+                        break
+            la=''.join(la.split())
+            lo=''.join(lo.split())
+            if '′' in la or '′' in lo:
+                la_deg=float(la[:la.find('°')])
+                lo_deg=float(lo[:lo.find('°')])
+                la_minu=float(la[la.find('°')+1:la.find('′')])
+                lo_minu=float(lo[lo.find('°')+1:lo.find('′')])
+                la_sec=float(la[la.find('′')+1:la.find('″')])
+                lo_sec=float(lo[lo.find('′')+1:lo.find('″')])
+                la1=("%.4f"%(la_deg+la_minu/60+la_sec/3600))
+                lo1=("%.4f"%(lo_deg+lo_minu/60+lo_sec/3600))
+            else:
+                la1_tem=float(la[:la.find('°')])
+                lo1_tem=float(lo[:lo.find('°')])
+                la1=("%.4f"%la1_tem)
+                lo1=("%.4f"%lo1_tem)
+            outfile.writelines([str(lo1),' ',str(la1),'\n'])
+            print(rowNum,lo1,la1)
+    outfile.close()
+    
+#for N25°08'10.6872", E114°11'52.9980"  一个单元格
+def txt_save2(filename,col1,col2,table):
+    #写进txt
+    print("总行数：" + str(table.nrows))
+    print("总列数：" + str(table.ncols))
+    outfile = open(filename,mode='a')
+    for rowNum in range(table.nrows):
+        if rowNum > 0:
+            la=str(table.cell(rowNum,col1).value)
+            lo=str(table.cell(rowNum,col2).value)
+            if len(la) == 0 or len(lo) == 0:
+                la=str(table.cell(rowNum,col1).value)
+            lo=str(table.cell(rowNum,col2).value)
+            if len(la) == 0 or len(lo) == 0:
+                for tem_row in range(rowNum,table.nrows):
+                    la_tem=str(table.cell(tem_row,col1).value)
+                    lo_tem=str(table.cell(tem_row,col2).value)
+                    if len(la_tem) > 0 and len(lo_tem) > 0:
+                        la=la_tem
+                        lo=lo_tem
+                        break
+            la=''.join(la.split())
+            lo=''.join(lo.split())
+            la_deg=float(la[la.find('N')+1:la.find('N')+3])
+            lo_deg=float(lo[lo.find('E')+1:lo.find('E')+4])
+            la_minu=float(la[la.find('N')+4:la.find('N')+6])
+            lo_minu=float(lo[lo.find('E')+5:lo.find('E')+7])
+            la_sec=float(la[la.find('N')+7:la.find('N')+14])
+            lo_sec=float(lo[lo.find('E')+8:lo.find('E')+15])
+            la1=("%.4f"%(la_deg+la_minu/60+la_sec/3600))
+            lo1=("%.4f"%(lo_deg+lo_minu/60+lo_sec/3600))
+            outfile.writelines([str(la1),' ',str(lo1),'\n'])
+            print(rowNum,la1,lo1)
+    outfile.close()
+    
+#for N25°08'10.6872", E114°11'52.9980"一个单元格
+def txt_save3(filename,col1,col2,table):
+    #写进txt
+    print("总行数：" + str(table.nrows))
+    print("总列数：" + str(table.ncols))
+    outfile = open(filename,mode='a')
+    for rowNum in range(table.nrows):
+        if rowNum > 0:
+            la=str(table.cell(rowNum,col1).value)
+            lo=str(table.cell(rowNum,col2).value)
+            if len(la) == 0 or len(lo) == 0:
+                for tem_row in range(rowNum,table.nrows):
+                    la_tem=str(table.cell(tem_row,col1).value)
+                    lo_tem=str(table.cell(tem_row,col2).value)
+                    if len(la_tem) > 0 and len(lo_tem) > 0:
+                        la=la_tem
+                        lo=lo_tem
+                        break
+            la=''.join(la.split())
+            lo=''.join(lo.split())
+#             la.replace(' ','')
+#             la=la.strip()
+#             lo=lo.strip()
+#            print(la,lo)
+            la_deg=float(la[la.find('N')+1:la.find('N')+3])
+            lo_deg=float(lo[lo.find('E')+1:lo.find('E')+4])
+            la_minu=float(la[la.find('N')+4:la.find('N')+6])
+            lo_minu=float(lo[lo.find('E')+5:lo.find('E')+7])
+            la_sec=float(la[la.find('N')+7:la.find('N')+12])
+            lo_sec=float(lo[lo.find('E')+8:lo.find('E')+13])
+            la1=("%.4f"%(la_deg+la_minu/60+la_sec/3600))
+            lo1=("%.4f"%(lo_deg+lo_minu/60+lo_sec/3600))
+            outfile.writelines([str(la1),' ',str(lo1),'\n'])
+            print(rowNum,la1,lo1)
+    outfile.close()
+    
+#for 113°30′32.90″;23°41′2.06″ 一个单元格
+def txt_save_extra1(filename,col1,col2,table):
+    #写进txt
+    print("总行数：" + str(table.nrows))
+    print("总列数：" + str(table.ncols))
+    outfile = open(filename,mode='a')
+    for rowNum in range(table.nrows):
+        if rowNum > 0:
+            la=str(table.cell(rowNum,col1).value)
+            lo=str(table.cell(rowNum,col2).value)
+            if len(la) == 0 or len(lo) == 0:
+                continue
+            la=''.join(la.split())
+            lo=''.join(lo.split())
+            la_deg=float(la[:la.find('°')])
+            lo_tem=lo[lo.find(';')+1:]
+            lo_deg=float(lo_tem[:lo_tem.find('°')])
+            la_minu=float(la[la.find('°')+1:la.find('′')])
+            lo_minu=float(lo_tem[lo_tem.find('°')+1:lo_tem.find('′')])
+            la_sec=float(la[la.find('′')+1:la.find('″')])
+            lo_sec=float(lo_tem[lo_tem.find('′')+1:lo_tem.find('″')])
+            la1=("%.4f"%(la_deg+la_minu/60+la_sec/3600))
+            lo1=("%.4f"%(lo_deg+lo_minu/60+lo_sec/3600))
+            outfile.writelines([str(lo1),' ',str(la1),'\n'])
+            print(rowNum,lo1,la1)
+            #print(rowNum,la_deg,la_minu,la_sec,lo_deg,lo_minu,lo_sec,la1,lo1)
+    outfile.close()
+    
+def txt_save_extra2(filename,col1,col2,table):
+    #写进txt
+    print("总行数：" + str(table.nrows))
+    print("总列数：" + str(table.ncols))
+    outfile = open(filename,mode='a')
+    for rowNum in range(table.nrows):
+        if rowNum > 4:
+            la=str(table.cell(rowNum,col1).value)
+            lo=str(table.cell(rowNum,col2).value)
+            #print(rowNum,la,lo)
+            if len(la) == 0 or len(lo) == 0:
+                for tem_row in range(rowNum,table.nrows):
+                    la_tem=str(table.cell(tem_row,col1).value)
+                    lo_tem=str(table.cell(tem_row,col2).value)
+                    if len(la_tem) > 0 and len(lo_tem) > 0:
+                        la=la_tem
+                        lo=lo_tem
+                        break
+            la=''.join(la.split())
+            lo=''.join(lo.split())
+            la1=(la[0:3]+'.'+la[3:9])
+            lo1=lo[9:11]+'.'+lo[11:]
+            outfile.writelines([str(lo1),' ',str(la1),'\n'])
+            print(rowNum,lo1,la1)
+            
+    outfile.close()
+    
+#打开文件
+data = xlrd.open_workbook(r'D:\Jupiter\python\NewHome\code\data\1-1.xlsx')
+data1 = xlrd.open_workbook(r'D:\Jupiter\python\NewHome\code\data\1-2.xlsx')
+data2 = xlrd.open_workbook(r'D:\Jupiter\python\NewHome\code\data\2.xlsx')
+data3 = xlrd.open_workbook(r'D:\Jupiter\python\NewHome\code\data\3.xlsx')
+data4 = xlrd.open_workbook(r'D:\Jupiter\python\NewHome\code\data\4.xlsx')
+data5 = xlrd.open_workbook(r'D:\Jupiter\python\NewHome\code\data\5.xlsx')
+data6 = xlrd.open_workbook(r'D:\Jupiter\python\NewHome\code\data\extra2.xlsx')
+data7 = xlrd.open_workbook(r'D:\Jupiter\python\NewHome\code\data\extra1.xlsx')
+
+# 查看工作表
+data.sheet_names()
+print("sheets：" + str(data.sheet_names()))
+
+# 通过文件名获得工作表,获取工作表1
+table = data.sheet_by_name('Sheet1')
+table1 = data1.sheet_by_name('Sheet1')
+table2 = data2.sheet_by_name('Sheet1')
+table3 = data3.sheet_by_name('Sheet1')
+table4 = data4.sheet_by_name('Sheet1')
+table5 = data5.sheet_by_name('Sheet1')
+table6 = data6.sheet_by_name('岩样')
+table7 = data7.sheet_by_name('GZ17182439- Reported')
+
+# 获取行数和列数
+print("总行数：" + str(table.nrows))
+print("总列数：" + str(table.ncols))
+print("总行数：" + str(table6.nrows))
+print("总列数：" + str(table6.ncols))
+
+    
+txt_save(r'data\sample1.txt',3,4,table)
+txt_save(r'data\sample1.txt',3,4,table1)
+txt_save2(r'data\sample1.txt',4,4,table2)
+txt_save3(r'data\sample1.txt',4,4,table3)
+txt_save5(r'data\sample1.txt',3,4,table4)
+txt_save5(r'data\sample1.txt',4,5,table5)
+txt_save_extra1(r'data\sample1.txt',3,3,table6)
+txt_save_extra2(r'data\sample1.txt',11,11,table7)
+
+#sum_num=table.nrows+table1.nrows+table2.nrows+table3.nrows+table4.nrows+table5.nrows
+sum_num=table.nrows+table1.nrows+table2.nrows+table3.nrows+table4.nrows+table5.nrows+table6.nrows+table7.nrows
+print("总行数：" + str(sum_num))
